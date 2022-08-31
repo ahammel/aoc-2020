@@ -1,0 +1,7 @@
+#kaocha/v1
+ {:color? true,
+  :reporter [kaocha.report/documentation],
+  :tests [{:id :unit,
+           :ns-patterns [".*"],
+           :source-paths ["src"],
+           :test-paths ["src"]}]}

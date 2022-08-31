@@ -2,20 +2,6 @@
   (:require [clojure.java.io :as io]
             [clojure.test :refer [deftest is]]))
 
-;; Parsing
-
-(defmulti ->int "Generic integer coercer" type)
-
-(defmethod ->int nil [_] nil)
-(defmethod ->int java.lang.String [s] (Integer/parseInt s))
-
-(deftest ->int-test
-  (is (nil? (->int nil)))
-  (is (zero? (->int "0")))
-  (is (= 10 (->int "10"))))
-
-(defn string->int [s] (->int s))
-
 (defn with-input
   [input-file f]
   (with-open [rdr (-> input-file
@@ -29,6 +15,24 @@
       (->> lines
            (take 10)
            doall))))
+
+;; Parsing
+(defmulti ->int "Generic integer coercer" type)
+
+(defmethod ->int nil [_] nil)
+
+(defmethod ->int java.lang.String [s]
+  (try
+    (Integer/parseInt s)
+    (catch NumberFormatException _ nil)))
+
+(deftest ->int-test
+  (is (nil? (->int nil)))
+  (is (nil? (->int "foobar")))
+  (is (zero? (->int "0")))
+  (is (= 10 (->int "10"))))
+
+(defn string->int [s] (->int s))
 
 (defn parse-ints
   "Returns all non-empty lines as integers"
@@ -57,3 +61,16 @@
          (-> ["abc" "cde" "efg"]
              ->2-matrix
              extent))))
+
+;; Sequence Manipulation
+
+(defn only
+  "If the coll is a singleton, return the only element. Else throw an exception."
+  [coll]
+  (let [head (first coll)
+        tail (rest coll)]
+  (if (or (nil? head)
+          (seq tail))
+    (throw (IllegalArgumentException. (str "Cannot extract only value from " coll)))
+    head)))
+

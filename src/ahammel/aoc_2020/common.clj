@@ -57,6 +57,19 @@
        last
        first))
 
+(defn adjacent
+  "Given an [int int] point on a two dimensional plane , returns all the
+  adjacent adjacent points"
+  [[x y]]
+  #{[(inc x) (inc y)] ;
+    [(inc x) y]       ;
+    [(inc x) (dec y)] ;
+    [x (inc y)]       ;
+    [x (dec y)]       ;
+    [(dec x) (inc y)] ;
+    [(dec x) y]       ;
+    [(dec x) (dec y)]})
+
 (deftest matrix-test
   (is (= {[0 0] \a, [1 0] \b, [0 1] \c, [1 1] \d} (->2-matrix ["ab" "cd"])))
   (is (= [2 2]

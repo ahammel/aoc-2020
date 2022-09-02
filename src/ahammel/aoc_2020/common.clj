@@ -21,10 +21,9 @@
 
 (defmethod ->int nil [_] nil)
 
-(defmethod ->int java.lang.String [s]
-  (try
-    (Integer/parseInt s)
-    (catch NumberFormatException _ nil)))
+(defmethod ->int java.lang.String
+  [s]
+  (try (Long/parseLong s) (catch NumberFormatException _ nil)))
 
 (deftest ->int-test
   (is (nil? (->int nil)))
@@ -37,8 +36,11 @@
 (defn parse-ints
   "Returns all non-empty lines as integers"
   [lines]
-  (eduction (filter seq) (map string->int) lines))
+  (eduction (filter seq)
+            (map string->int)
+            lines))
 
+;; Matrices
 (defn ->2-matrix
   [rows]
   (into (sorted-map)
@@ -63,14 +65,22 @@
              extent))))
 
 ;; Sequence Manipulation
-
 (defn only
   "If the coll is a singleton, return the only element. Else throw an exception."
   [coll]
   (let [head (first coll)
         tail (rest coll)]
-  (if (or (nil? head)
-          (seq tail))
-    (throw (IllegalArgumentException. (str "Cannot extract only value from " coll)))
-    head)))
+    (if (or (nil? head) (seq tail))
+      (throw (IllegalArgumentException. (str "Cannot extract only value from "
+                                             coll)))
+      head)))
 
+;; Sliding windows
+
+(defn sliding-window
+  "Returns a lazy sliding window of size n of the items in the coll"
+  [n coll]
+  (let [colls (map #(drop % coll) (range 0 n))] (apply map vector colls)))
+
+(deftest sliding-window-test
+  (is (= [[0 1 2] [1 2 3] [2 3 4]] (take 3 (sliding-window 3 (range))))))

@@ -1,1 +1,1 @@
-{:fn-map {"with-input" :arg1}, :width 80}
+{:fn-map {"eduction" :force-nl-body, "with-input" :arg1}, :width 80}

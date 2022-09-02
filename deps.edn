@@ -1,15 +1,17 @@
-{:aliases {:repl/nrepl
-             ;;;; Simple nREPL server with no additional libraries, headless
-             {:extra-deps {nrepl/nrepl {:mvn/version "0.9.0"}},
-              :main-opts ["-m" "nrepl.cmdline"]},
-           :test {:extra-deps {lambdaisland/kaocha {:mvn/version "1.69.1069"}},
-                  :main-opts ["-m" "kaocha.runner"]},
-           :repl/rebl {:extra-deps {cider/cider-nrepl {:mvn/version "0.27.4"},
-                                    com.bhauman/rebel-readline {:mvn/version
-                                                                  "0.1.4"},
-                                    nrepl/nrepl {:mvn/version "0.9.0"}},
-                       :main-opts ["-m" "nrepl.cmdline" "--middleware"
-                                   "[cider.nrepl/cider-middleware]" "-i" "-f"
-                                   "rebel-readline.main/-main"]}},
+{:aliases
+   {:repl/nrepl
+      ;;;; Simple nREPL server with no additional libraries, headless
+      {:extra-deps {nrepl/nrepl {:mvn/version "0.9.0"}},
+       :main-opts ["-m" "nrepl.cmdline"]},
+    :repl/rebl {:extra-deps {cider/cider-nrepl {:mvn/version "0.27.4"},
+                             com.bhauman/rebel-readline {:mvn/version "0.1.4"},
+                             nrepl/nrepl {:mvn/version "0.9.0"}},
+                :main-opts ["-m" "nrepl.cmdline" "--middleware"
+                            "[cider.nrepl/cider-middleware]" "-i" "-f"
+                            "rebel-readline.main/-main"]},
+    :test/unit {:extra-deps {lambdaisland/kaocha {:mvn/version "1.69.1069"}},
+                :main-opts ["-m" "kaocha.runner"]},
+    :test/lint {:extra-deps {jonase/eastwood {:mvn/version "1.2.5"}},
+                :main-opts ["-m" "eastwood.lint" {:only-modified true}]}},
  :deps {org.clojure/clojure {:mvn/version "1.11.1"}},
  :paths ["src" "resources"]}

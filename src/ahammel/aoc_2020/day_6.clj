@@ -6,7 +6,7 @@
 (defn union-counts
   [lines]
   (transduce (comp (partition-by empty?)
-                   (filter (fn [line] not= [""] line))
+                   (filter (fn [line] (not= [""] line)))
                    (map (fn [group] (apply union (map set group))))
                    (map count))
              +
@@ -15,7 +15,7 @@
 (defn intersection-counts
   [lines]
   (transduce (comp (partition-by empty?)
-                   (filter (fn [line] not= [""] line))
+                   (filter (fn [line] (not= [""] line)))
                    (map (fn [group] (apply intersection (map set group))))
                    (map count))
              +

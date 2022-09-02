@@ -77,9 +77,9 @@
                                            {:bag/colour "shiny gold"}))
                     count))))))
   (is (= 32
-         (->> (bags-inside (parse fixture-1) {:bag/colour "shiny gold"}))))
+         (bags-inside (parse fixture-1) {:bag/colour "shiny gold"})))
   (is (= 126
-         (->> (bags-inside (parse fixture-2) {:bag/colour "shiny gold"}))))
+         (bags-inside (parse fixture-2) {:bag/colour "shiny gold"})))
   (is
     (= 172246
        (with-input "day-7.txt"

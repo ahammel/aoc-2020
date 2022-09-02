@@ -20,3 +20,4 @@ pom.xml.asc
 .rebel_readline_history
 
 # End of https://www.toptal.com/developers/gitignore/api/clojure
+.eastwood

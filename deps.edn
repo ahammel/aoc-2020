@@ -13,5 +13,6 @@
                 :main-opts ["-m" "kaocha.runner"]},
     :test/lint {:extra-deps {jonase/eastwood {:mvn/version "1.2.5"}},
                 :main-opts ["-m" "eastwood.lint" {:only-modified true}]}},
- :deps {org.clojure/clojure {:mvn/version "1.11.1"}},
+ :deps {criterium/criterium {:mvn/version "0.4.6"},
+        org.clojure/clojure {:mvn/version "1.11.1"}},
  :paths ["src" "resources"]}

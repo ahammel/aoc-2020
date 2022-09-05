@@ -70,6 +70,17 @@
     [(dec x) y]       ;
     [(dec x) (dec y)]})
 
+(defn point+
+  "Matrix addition on two or more points"
+  ([] [0 0])
+  ([point] point)
+  ([[x1 y1] [x2 y2]] [(+ x1 x2) (+ y1 y2)])
+  ([point1 point2 & points] (reduce point+ (conj points point1 point2))))
+
+(defn manhattan-distance
+  ([point] (manhattan-distance point [0 0]))
+  ([[x1 y1] [x2 y2]] [(abs (- x1 x2)) (abs (- y1 y2))]))
+
 (deftest matrix-test
   (is (= {[0 0] \a, [1 0] \b, [0 1] \c, [1 1] \d} (->2-matrix ["ab" "cd"])))
   (is (= [2 2]

@@ -89,6 +89,7 @@
              extent))))
 
 ;; Sequence Manipulation
+
 (defn only
   "If the coll is a singleton, return the only element. Else throw an exception."
   [coll]
@@ -108,3 +109,10 @@
 
 (deftest sliding-window-test
   (is (= [[0 1 2] [1 2 3] [2 3 4]] (take 3 (sliding-window 3 (range))))))
+
+;;
+
+(defn gcd "Greatest common divisor" [a b] (if (zero? b) a (recur b (mod a b))))
+
+(defn lcm "Least common multiple" [a b] (* (abs a) (/ b (gcd a b))))
+

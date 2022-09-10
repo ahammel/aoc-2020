@@ -1,4 +1,4 @@
-(ns ahammel.day-15
+(ns ahammel.aoc-2020.day-15
   (:require [clojure.test :refer [deftest is]]))
 
 (defn recite

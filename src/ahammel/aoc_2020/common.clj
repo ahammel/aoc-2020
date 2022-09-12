@@ -57,9 +57,12 @@
        last
        first))
 
-(defn adjacent
-  "Given an [int int] point on a two dimensional plane , returns all the
-  adjacent adjacent points"
+(defmulti adjacent
+  "Given integral points in an n-dimensional space, returns all the adjacent
+  points"
+  count)
+
+(defmethod adjacent 2
   [[x y]]
   #{[(inc x) (inc y)] ;
     [(inc x) y]       ;
@@ -70,8 +73,42 @@
     [(dec x) y]       ;
     [(dec x) (dec y)]})
 
+(defmethod adjacent 3
+  [[x y z :as point]]
+  (into #{}
+        (for [x' [(dec x) x (inc x)]
+              y' [(dec y) y (inc y)]
+              z' [(dec z) z (inc z)]
+              :let [point' [x' y' z']]
+              :when (not= point point')]
+          point')))
+
+(defmethod adjacent 4
+  [[x y z w :as point]]
+  (into #{}
+        (for [x' [(dec x) x (inc x)]
+              y' [(dec y) y (inc y)]
+              z' [(dec z) z (inc z)]
+              w' [(dec w) w (inc w)]
+              :let [point' [x' y' z' w']]
+              :when (not= point point')]
+          point')))
+
+(deftest adjacent-test
+  (is (= #{[-1 -1 -1] [0 -1 -1] [1 -1 -1] ;
+           [-1 0 -1] [0 0 -1] [1 0 -1] ;
+           [-1 1 -1] [0 1 -1] [1 1 -1] ;
+           [-1 -1 0] [0 -1 0] [1 -1 0] ;
+           [-1 0 0] [1 0 0] ;
+           [-1 1 0] [0 1 0] [1 1 0] ;
+           [-1 -1 1] [0 -1 1] [1 -1 1] ;
+           [-1 0 1] [0 0 1] [1 0 1] ;
+           [-1 1 1] [0 1 1] [1 1 1] ;
+          }
+         (adjacent [0 0 0]))))
+
 (defn point+
-  "Matrix addition on two or more points"
+  "Matrix addition on two or more two-dimensional points"
   ([] [0 0])
   ([point] point)
   ([[x1 y1] [x2 y2]] [(+ x1 x2) (+ y1 y2)])
@@ -110,9 +147,8 @@
 (deftest sliding-window-test
   (is (= [[0 1 2] [1 2 3] [2 3 4]] (take 3 (sliding-window 3 (range))))))
 
-;;
+;; Number theory
 
 (defn gcd "Greatest common divisor" [a b] (if (zero? b) a (recur b (mod a b))))
 
 (defn lcm "Least common multiple" [a b] (* (abs a) (/ b (gcd a b))))
-

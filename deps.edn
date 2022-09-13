@@ -14,5 +14,6 @@
     :test/lint {:extra-deps {jonase/eastwood {:mvn/version "1.2.5"}},
                 :main-opts ["-m" "eastwood.lint" {:only-modified true}]}},
  :deps {criterium/criterium {:mvn/version "0.4.6"},
+        instaparse/instaparse {:mvn/version "1.4.12"},
         org.clojure/clojure {:mvn/version "1.11.1"}},
  :paths ["src" "resources"]}

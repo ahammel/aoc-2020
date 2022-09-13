@@ -56,7 +56,7 @@
                 (let [[x y] point] (when (= \# value) [x y 0 0]))))
         (->2-matrix lines)))
 
-(deftest day-17-test
+(deftest day-17-test-1
   (is (= 112
          (->> (parse-3d fixture)
               (iterate tick)
@@ -68,7 +68,9 @@
               (iterate tick)
               (take (inc 6))
               last
-              count)))
+              count))))
+
+(deftest ^:slow day-17-test-2
   (is (= 848
          (->> (parse-4d fixture)
               (iterate tick)
@@ -81,4 +83,3 @@
               (take (inc 6))
               last
               count))))
-

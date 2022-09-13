@@ -10,7 +10,9 @@
                             "[cider.nrepl/cider-middleware]" "-i" "-f"
                             "rebel-readline.main/-main"]},
     :test/unit {:extra-deps {lambdaisland/kaocha {:mvn/version "1.69.1069"}},
-                :main-opts ["-m" "kaocha.runner"]},
+                :main-opts ["-m" "kaocha.runner" "unit"]},
+    :test/all {:extra-deps {lambdaisland/kaocha {:mvn/version "1.69.1069"}},
+               :main-opts ["-m" "kaocha.runner" "all"]},
     :test/lint {:extra-deps {jonase/eastwood {:mvn/version "1.2.5"}},
                 :main-opts ["-m" "eastwood.lint" {:only-modified true}]}},
  :deps {criterium/criterium {:mvn/version "0.4.6"},

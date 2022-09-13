@@ -20,5 +20,7 @@
 (deftest day-15-test
   (is (= [0 3 6 0 3 3 1 0 4 0] (take 10 (recite fixture))))
   (is (= 436 (nth (recite fixture) (dec 2020))))
-  (is (= 1280 (nth (recite input) (dec 2020))))
+  (is (= 1280 (nth (recite input) (dec 2020)))))
+
+(deftest ^:slow day-15-test-full
   (is (= 651639 (nth (recite input) (dec 30000000)))))

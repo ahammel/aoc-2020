@@ -2,5 +2,10 @@
  {:color? true,
   :tests [{:id :unit,
            :ns-patterns [".*"],
+           :skip-meta [:slow],
+           :source-paths ["src"],
+           :test-paths ["src"]}
+          {:id :all,
+           :ns-patterns [".*"],
            :source-paths ["src"],
            :test-paths ["src"]}]}

@@ -67,13 +67,22 @@
    "L.LLLLL.LL" ;
    ""])
 
-(deftest day-11-test
+(deftest day-11-test-fixture
   (is (= 37
          (-> (->2-matrix fixture)
              solve-adjacent-neighbors
              vals
              frequencies
              (get \#))))
+  (is (= 26
+         (-> (->2-matrix fixture)
+             solve-line-of-sight-neighbors
+             vals
+             frequencies
+             (get \#)))))
+
+
+(deftest ^:slow day-11-test-input
   (is (= 2247
          (with-input "day-11.txt"
            (fn [lines]
@@ -82,12 +91,6 @@
                  vals
                  frequencies
                  (get \#))))))
-  (is (= 26
-         (-> (->2-matrix fixture)
-             solve-line-of-sight-neighbors
-             vals
-             frequencies
-             (get \#))))
   (is (= 2011
          (with-input "day-11.txt"
            (fn [lines]
@@ -96,4 +99,3 @@
                  vals
                  frequencies
                  (get \#)))))))
-
